@@ -1,12 +1,6 @@
 #include <iostream>
 #include <string>
 
-struct Product
-{
-	int ID, Price, Count;
-	std::string Name;
-};
-
 void cout_Menu()
 {
 	std::cout << "1.Показать все товары" << std::endl;
@@ -20,3 +14,5 @@ void cout_Menu()
 	std::cout << "9.Загрузить данные" << std::endl;
 	std::cout << "0.Выход" << std::endl;
 }
+
+
