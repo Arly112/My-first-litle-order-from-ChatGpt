@@ -1,6 +1,6 @@
 #pragma once
 #include "Product.h"
-#include "vector"
+#include <vector>
 
 class Warehouse
 {
@@ -15,6 +15,6 @@ public:
 	void sell_product();
 	void give_new_product();
 	void cout_product_few();
-	void save_data();
-	void export_data();
+	void Save();
+	void Load();
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Warehouse.h"
 
 void Warehouse::cout_all_product()
@@ -154,4 +155,44 @@ void Warehouse::cout_product_few()
 	}
 	std::cout << std::endl;
 	std::cout << "Количество каждого товара больше минимального остатка";
+}
+
+void Warehouse::Save()
+{
+	size_t c;
+	c = product.size();
+	std::ofstream save;
+	save.open("Save.txt");
+	save << next_id << std::endl;
+	save << c << std::endl;
+	for (size_t i = 0; i < c; i++)
+	{
+
+		save << product[i].ID << std::endl
+			<< product[i].Name << std::endl
+			<< product[i].Price << std::endl
+			<< product[i].Count << std::endl;
+	}
+	save.close();
+}
+
+void Warehouse::Load()
+{
+	product.clear();
+	size_t c;
+	c = product.size();
+	std::ifstream Load;
+	Load.open("Save.txt");
+	Load >> next_id;
+	Load >> c;
+	for (size_t i = 0; i < c; i++)
+	{
+		Product p;
+		Load >> p.ID;
+		Load.ignore(1000, '\n');
+		std::getline(Load, p.Name);
+		Load >> p.Price >> p.Count;
+		product.push_back(p);
+	}
+	Load.close();
 }
