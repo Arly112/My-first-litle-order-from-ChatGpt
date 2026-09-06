@@ -21,12 +21,13 @@ void cout_Menu()
 
 int main()
 {
+	Warehouse w;
+	w.Load();
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	setlocale(LC_ALL, "ru");
 	int vab;
 	vab = -1;
-	Warehouse w;
 	while (vab!=0)
 	{
 		cout_Menu();
@@ -36,24 +37,38 @@ int main()
 		{
 		case 1:
 			w.cout_all_product();
+			w.Save();
 			break;
 		case 2:
 			w.add_product();
+			w.Save();
 			break;
 		case 3:
 			w.delete_product();
+			w.Save();
 			break;
 		case 4:
 			w.find_product();
+			w.Save();
 			break;
 		case 5:
 			w.sell_product();
+			w.Save();
 			break;
 		case 6:
 			w.give_new_product();
+			w.Save();
 			break;
 		case 7:
 			w.cout_product_few();
+			w.Save();
+			break;
+		case 8:
+			w.Save();
+			break;
+		case 9:
+			w.Load();
+			w.Save();
 			break;
 		default:
 			break;

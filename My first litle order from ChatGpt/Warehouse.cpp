@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Warehouse.h"
 
 void Warehouse::cout_all_product()
@@ -49,11 +50,14 @@ void Warehouse::delete_product()
 			product.erase(product.begin() + i);
 			std::cout << std::endl;
 			std::cout << "Товар с ID = " << id << " удалён";
+			std::cout << std::endl;
+
 			return;
 		}
 	}
-	std::cout << std::endl;
+	
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::find_product()
@@ -77,6 +81,7 @@ void Warehouse::find_product()
 	}
 	std::cout << std::endl;
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::sell_product()
@@ -93,10 +98,15 @@ void Warehouse::sell_product()
 		{
 			std::cout << "Товар с ID = " << id <<" в количестве "<<count<<" успешно продан" << std::endl;
 			product[i].Count -= count;
+			if (product[i].Count <= 0)
+			{
+				product.erase(product.begin() + i);
+			}
 			return;
 		}
 	}
 	std::cout << "Товар с ID = " << id << " не найден или товара на складе слишком мало для данной продажи";
+	std::cout << std::endl;
 }
 
 void Warehouse::give_new_product()
@@ -119,6 +129,7 @@ void Warehouse::give_new_product()
 	}
 	std::cout << std::endl;
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::cout_product_few()
@@ -149,9 +160,50 @@ void Warehouse::cout_product_few()
 				std::cout << "Количество: " << product[i].Count << std::endl;
 				std::cout << "-----------------------------------" << std::endl;
 			}
-			return;
 		}
 	}
+	return;
 	std::cout << std::endl;
 	std::cout << "Количество каждого товара больше минимального остатка";
+	std::cout << std::endl;
+}
+
+void Warehouse::Save()
+{
+	size_t c;
+	c = product.size();
+	std::ofstream save;
+	save.open("Save.txt");
+	save << next_id << std::endl;
+	save << c << std::endl;
+	for (size_t i = 0; i < c; i++)
+	{
+
+		save << product[i].ID << std::endl
+			<< product[i].Name << std::endl
+			<< product[i].Price << std::endl
+			<< product[i].Count << std::endl;
+	}
+	save.close();
+}
+
+void Warehouse::Load()
+{
+	product.clear();
+	size_t c;
+	c = product.size();
+	std::ifstream Load;
+	Load.open("Save.txt");
+	Load >> next_id;
+	Load >> c;
+	for (size_t i = 0; i < c; i++)
+	{
+		Product p;
+		Load >> p.ID;
+		Load.ignore(1000, '\n');
+		std::getline(Load, p.Name);
+		Load >> p.Price >> p.Count;
+		product.push_back(p);
+	}
+	Load.close();
 }
