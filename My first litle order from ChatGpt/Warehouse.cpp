@@ -50,11 +50,14 @@ void Warehouse::delete_product()
 			product.erase(product.begin() + i);
 			std::cout << std::endl;
 			std::cout << "Товар с ID = " << id << " удалён";
+			std::cout << std::endl;
+
 			return;
 		}
 	}
-	std::cout << std::endl;
+	
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::find_product()
@@ -78,6 +81,7 @@ void Warehouse::find_product()
 	}
 	std::cout << std::endl;
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::sell_product()
@@ -94,10 +98,15 @@ void Warehouse::sell_product()
 		{
 			std::cout << "Товар с ID = " << id <<" в количестве "<<count<<" успешно продан" << std::endl;
 			product[i].Count -= count;
+			if (product[i].Count <= 0)
+			{
+				product.erase(product.begin() + i);
+			}
 			return;
 		}
 	}
 	std::cout << "Товар с ID = " << id << " не найден или товара на складе слишком мало для данной продажи";
+	std::cout << std::endl;
 }
 
 void Warehouse::give_new_product()
@@ -120,6 +129,7 @@ void Warehouse::give_new_product()
 	}
 	std::cout << std::endl;
 	std::cout << "Товар с ID = " << id << " не найден";
+	std::cout << std::endl;
 }
 
 void Warehouse::cout_product_few()
@@ -150,11 +160,12 @@ void Warehouse::cout_product_few()
 				std::cout << "Количество: " << product[i].Count << std::endl;
 				std::cout << "-----------------------------------" << std::endl;
 			}
-			return;
 		}
 	}
+	return;
 	std::cout << std::endl;
 	std::cout << "Количество каждого товара больше минимального остатка";
+	std::cout << std::endl;
 }
 
 void Warehouse::Save()
